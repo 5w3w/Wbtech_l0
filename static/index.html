@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Lookup</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .order-info {
+            margin-top: 20px;
+        }
+        .error {
+            color: red;
+            margin-top: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        table, th, td {
+            border: 1px solid #ccc;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Order Lookup</h1>
+        <form action="/order" method="get">
+            <label for="orderId">Enter Order ID:</label>
+            <input type="text" id="orderId" name="id" required>
+            <button type="submit">Search</button>
+        </form>
+
+        
+        <div class="order-info">
+    <table>
+        <tr>
+            <th>ID</th>
+            <td>{{.Order.ID}}</td>
+        </tr>
+        {{if .Error}}
+        <div class="error">
+            <p>{{.Error}}</p>
+        </div>
+        {{end}}
+    </table>
+            <h2>Order Details</h2>
+            <table>
+        {{if .Order}}
+                  
+                <tr>
+                    <th>UID</th>
+                    <td>{{.Order.OrderUID}}</td>
+                </tr>
+                <tr>
+                    <th>TrackNumber</th>
+                    <td>{{.Order.TrackNumber}}</td>
+                </tr>
+                <tr>
+                    <th>Entry</th>
+                    <td>{{.Order.Entry}}</td>
+                </tr>
+                <tr>
+                    <table><h2>Delivery</h2><th>Name</th>
+                    <td>{{.Order.Delivery.Name}}</td>
+                </tr>
+                <tr>
+                    <th>Phone</th>
+                    <td>{{.Order.Delivery.Phone}}</td>
+                </tr>
+                <tr>
+                    <th>Zip</th>
+                    <td>{{.Order.Delivery.Zip}}</td>
+                </tr>
+                <tr>
+                    <th>City</th>
+                    <td>{{.Order.Delivery.City}}</td>
+                </tr>
+                <tr>
+                    <th>Address</th>
+                    <td>{{.Order.Delivery.Address}}</td>
+                </tr>
+                <tr>
+                    <th>Region</th>
+                    <td>{{.Order.Delivery.Region}}</td>
+                </tr>
+                <tr>
+                    <th>Email</th>
+                    <td>{{.Order.Delivery.Email}}</td>
+                </tr>
+            </table>
+            <table><h2>Payment</h2>
+                    <th>Transaction</th>
+                    <td>{{.Order.Payment.Transaction}}</td>
+                </tr>
+                <tr>
+                    <th>RequestID</th>
+                    <td>{{.Order.Payment.RequestID}}</td>
+                </tr>
+                <tr>
+                    <th>Currency</th>
+                    <td>{{.Order.Payment.Currency}}</td>
+                </tr>
+                <tr>
+                    <th>Provider</th>
+                    <td>{{.Order.Payment.Provider}}</td>
+                </tr>
+                <tr>
+                    <th>Amount</th>
+                    <td>{{.Order.Payment.Amount}}</td>
+                </tr>
+                <tr>
+                    <th>PaymentDT</th>
+                    <td>{{.Order.Payment.PaymentDT}}</td>
+                </tr>
+                <tr>
+                    <th>Bank</th>
+                    <td>{{.Order.Payment.Bank}}</td>
+                </tr>
+                <tr>
+                    <th>DeliveryCost</th>
+                    <td>{{.Order.Payment.DeliveryCost}}</td>
+                </tr>
+                <tr>
+                    <th>GoodsTotal</th>
+                    <td>{{.Order.Payment.GoodsTotal}}</td>
+                </tr>
+                <tr>
+                    <th>CustomFee</th>
+                    <td>{{.Order.Payment.CustomFee}}</td>
+                </tr>
+                <tr>
+                </table>
+                 
+                <table><h2>Items</h2>
+                    {{range .Order.Items}}
+                    <tr>  
+                    <th>ChrtID</th>
+                    <td>{{.ChrtID}}</td>
+                    </tr>
+                    <tr>
+                    <th>TrackNumber</th>
+                    <td>{{.TrackNumber}}</td>
+                    </tr>
+                    <tr>
+                    <th>Price</th>
+                    <td>{{.Price}}</td>
+                    </tr>
+                    <tr>
+                    <th>RID</th>
+                    <td>{{.RID}}</td>
+                </tr>
+                <tr>    
+                <th>Name</th>
+                    <td>{{.Name}}</td>
+                </tr>
+                    <tr><th>Sale</th>
+                    <td>{{.Sale}}</td>
+                </tr>
+                    <tr><th>Size</th>
+                    <td>{{.Size}}</td>
+                </tr>
+                <tr>    
+                <th>TotalPrice</th>
+                    <td>{{.TotalPrice}}</td>
+                </tr>
+                <tr>    
+                <th>NumID</th>
+                    <td>{{.NmID}}</td>
+                </tr>
+                    <tr><th>Brand</th>
+                    <td>{{.Brand}}</td>
+                </tr>
+                    <tr><th>Status</th>
+                    <td>{{.Status}}</td>
+                </tr>
+            </table>
+                
+
+               
+                {{end}}
+               <table><h2>Order Details</h2>
+                <tr>
+                    <th>Locale</th>
+                    <td>{{.Order.Locale}}</td>
+                </tr>
+                <tr>
+                    <th>InternalSignature</th>
+                    <td>{{.Order.InternalSignature}}</td>
+                </tr>
+                <tr>
+                    <th>CustomerID</th>
+                    <td>{{.Order.CustomerID}}</td>
+                </tr>
+                <tr>
+                    <th>DeliveryService</th>
+                    <td>{{.Order.DeliveryService}}</td>
+                </tr>
+                <tr>
+                    <th>ShardKey</th>
+                    <td>{{.Order.Shardkey}}</td>
+                </tr>
+                <tr>
+                    <th>SmID</th>
+                    <td>{{.Order.SmID}}</td>
+                </tr>
+                <tr>
+                    <th>DateCreated</th>
+                    <td>{{.Order.DateCreated}}</td>
+                </tr>
+                <tr>
+                    <th>OffShard</th>
+                    <td>{{.Order.OofShard}}</td>
+                </tr>
+            </table>
+                <!-- Добавьте другие поля заказа по необходимости -->
+            </table>
+        </div>
+        {{end}}
+        
+        
+    </div>
+</body>
+</html>
